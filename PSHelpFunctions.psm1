@@ -74,7 +74,7 @@ Function Convert-UTF8ToString {
     
     .EXAMPLE
     $String = "PowerlÃ¤nk AB"
-    FixUTF($String)
+    Convert-UTF8ToString($String)
     
     OUTPUT
     Powerlänk AB
