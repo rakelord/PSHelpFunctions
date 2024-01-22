@@ -48,3 +48,12 @@ Get-ValidDate($Date)
 "2023-01-22T00:00:00"
 ```
 
+## Remove-SpecialCharacters
+Removes all special characters, like . - #¤%"#¤&/, basically anything that is not a character or a number
+```powershell
+$String = "asidfar----srtjrstjrstjt....j"
+Remove-SpecialCharacters($String)
+
+# OUTPUT
+"asidfarsrtjrstjrstjtj"
+```

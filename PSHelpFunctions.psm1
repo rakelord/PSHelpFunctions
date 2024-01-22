@@ -120,3 +120,29 @@ Function Get-ValidDate {
         return ""
     }
 }
+
+function Remove-SpecialCharacters {
+    <#
+    .SYNOPSIS
+    Removes special characters
+    
+    .DESCRIPTION
+    Removes all special characters, like . - #¤%"#¤&/, basically anything that is not a character or a number
+    
+    .PARAMETER InputString
+    The input string
+    
+    .EXAMPLE
+    $String = "asidfar----srtjrstjrstjt....j"
+    Remove-SpecialCharacters($String)
+    
+    OUTPUT
+    asidfarsrtjrstjrstjtj
+
+    #>
+    param(
+        [parameter(mandatory)]
+        $InputString
+    )
+    return [regex]::Replace($InputString, "[^a-zA-Z0-9\s]", "")
+}
