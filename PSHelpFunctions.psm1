@@ -17,7 +17,6 @@ function Remove-BadStringCharacters {
 
     #>
     param(
-        [parameter(mandatory)]
         [string]$String
     )
     [Text.Encoding]::ASCII.GetString([Text.Encoding]::GetEncoding("Cyrillic").GetBytes($String))
@@ -111,7 +110,6 @@ Function Get-ValidDate {
 
     #>
     Param(
-        [parameter(mandatory)]
         $InputDate
     )
     try {
@@ -141,7 +139,6 @@ function Remove-SpecialCharacters {
 
     #>
     param(
-        [parameter(mandatory)]
         $InputString
     )
     return [regex]::Replace($InputString, "[^a-zA-Z0-9\s]", "")
@@ -149,14 +146,12 @@ function Remove-SpecialCharacters {
 
 function IsNotNULL {
     param(
-        [parameter(mandatory)]
         $InputString
     )
     return ![STRING]::IsNullOrEmpty($InputString)
 }
 function IsNULL {
     param(
-        [parameter(mandatory)]
         $InputString
     )
     return [STRING]::IsNullOrEmpty($InputString)
