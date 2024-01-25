@@ -146,3 +146,18 @@ function Remove-SpecialCharacters {
     )
     return [regex]::Replace($InputString, "[^a-zA-Z0-9\s]", "")
 }
+
+function IsNotNULL {
+    param(
+        [parameter(mandatory)]
+        $InputString
+    )
+    return ![STRING]::IsNullOrEmpty($InputString)
+}
+function IsNULL {
+    param(
+        [parameter(mandatory)]
+        $InputString
+    )
+    return [STRING]::IsNullOrEmpty($InputString)
+}
