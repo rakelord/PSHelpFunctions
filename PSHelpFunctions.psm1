@@ -106,14 +106,14 @@ Function Get-ValidDate {
     Get-ValidDate($Date)
 
     OUTPUT
-    2023-01-22T00:00:00
+    2023-01-22T00:00:00.000
 
     #>
     Param(
         $InputDate
     )
     try {
-        return ([DATETIME]$InputDate).ToString("yyy-MM-ddTHH:mm:ss")
+        return ([DATETIME]$InputDate).ToString("yyy-MM-ddTHH:mm:ss.fff")
     } catch { 
         return ""
     }
