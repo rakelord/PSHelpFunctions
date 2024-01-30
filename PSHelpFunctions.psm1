@@ -204,7 +204,7 @@ Function Invoke-MultiThreads {
     for($i = 0;$i -lt $HowManyJobs;$i++){
         $ObjectStart = ($i*200)
         $ObjectEnd = $ObjectStart+200-1
-        
+
         Start-Job -Name $WorkerName -ArgumentList $RunObjects,$ObjectStart,$ObjectEnd,$APIAuthentication -ScriptBlock $ScriptBlock | Out-Null
     }
 
@@ -212,7 +212,7 @@ Function Invoke-MultiThreads {
 
     do {
         Write-Host "Waiting $WorkerName to finish..."
-        Start-Sleep -Seconds 2
+        Start-Sleep -Seconds 3
         $NotCompletedJobs = (Get-Job -Name $WorkerName | Where-Object {$_.State -ne 'Completed'})
     } while($NotCompletedJobs.Count -ne 0)
 
