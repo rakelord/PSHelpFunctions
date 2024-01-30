@@ -216,12 +216,7 @@ Function Invoke-MultiThreads {
         $NotCompletedJobs = (Get-Job -Name $WorkerName | Where-Object {$_.State -ne 'Completed'})
     } while($NotCompletedJobs.Count -ne 0)
 
-    $OutputData = @()
-    foreach ($Job in (Get-Job -Name $WorkerName)){
-        $JobData = Receive-Job -Name $Job.Name
-        $OutputData += $JobData
-        Remove-Job $Job.Name
-    }
-
+    $OutputData = Get-Job -Name $WorkerName | Receive-Job
+    Remove-Job -Name $WorkerName
     Return $OutputData
 }
