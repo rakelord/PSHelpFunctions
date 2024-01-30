@@ -203,7 +203,7 @@ Function Invoke-MultiThreads {
 
     for($i = 0;$i -lt $HowManyJobs;$i++){
         $ObjectStart = ($i*200)
-        $ObjectEnd = $ObjectStart+200
+        $ObjectEnd = $ObjectStart+200-1
         
         Start-Job -Name $WorkerName -ArgumentList $RunObjects,$ObjectStart,$ObjectEnd,$APIAuthentication -ScriptBlock $ScriptBlock | Out-Null
     }
