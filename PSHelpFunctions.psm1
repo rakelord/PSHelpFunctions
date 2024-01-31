@@ -160,10 +160,10 @@ function IsNULL {
 Function Invoke-MultiThreads {
     <#
     .SYNOPSIS
-    Run multithreading on larger powershell objects
+    Run multithreading (processes) on larger powershell objects
     
     .DESCRIPTION
-    Run multithreading on larger powershell objects
+    Run multithreading (processes) on larger powershell objects
     
     .PARAMETER RunObjects
     The object to loop through
