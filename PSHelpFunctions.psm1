@@ -171,21 +171,20 @@ Function Invoke-MultiThreads {
     .PARAMETER ScriptBlock
     This ScriptBlock to use multithreading on
     $args[0] = The RunObject
-    $args[1] and $args[2] = Is used within the job to create separate workers for each 200 objects found, you need to add this to the loop like this ($RunObject in $args[0][$args[1]..$args[2]])
-    $args[3] = API authentication, if you need to supply header to Invoke-RestMethod
+    $args[1] = API authentication, if you need to supply header to Invoke-RestMethod
 
     .PARAMETER APIAuthentication
-    If you have a Header you want to use within the request, is refered to $args[3] in ScriptBlock
+    If you have a Header you want to use within the request, is refered to $args[1] in ScriptBlock
     
     .EXAMPLE
     $TestObject = Invoke-MultiThreads -RunObjects $LargerArray -APIAuthentication $APIHeader -ScriptBlock {
         $OutputObject = @()
-        foreach ($RunObject in $args[0][$args[1]..$args[2]]){
+        foreach ($RunObject in $args[0]){
             $OutputObject += @{
                 parameter1 = data1
                 parameter2 = data2
                 parameter3 = data3
-                parameter4 = Invoke-RestMethod -Uri "https://bla.se" -Headers $args[3] -Method GET -ContentType "application/json"
+                parameter4 = Invoke-RestMethod -Uri "https://bla.se/api/endpoint" -Headers $args[1] -Method GET -ContentType "application/json"
             }
         }
         $OutputObject
@@ -203,9 +202,9 @@ Function Invoke-MultiThreads {
 
     for($i = 0;$i -lt $HowManyJobs;$i++){
         $ObjectStart = ($i*200)
-        $ObjectEnd = $ObjectStart+200-1
+        $RunObjectsFraction = $RunObjects[$ObjectStart..($ObjectStart+200-1)]
 
-        Start-Job -Name $WorkerName -ArgumentList $RunObjects,$ObjectStart,$ObjectEnd,$APIAuthentication -ScriptBlock $ScriptBlock | Out-Null
+        Start-Job -Name $WorkerName -ArgumentList $RunObjectsFraction,$APIAuthentication -ScriptBlock $ScriptBlock | Out-Null
     }
 
     Write-Host "Started jobs: $WorkerName"
