@@ -195,14 +195,21 @@ Function Invoke-MultiThreads {
         $RunObjects,
         [parameter(mandatory)]
         $ScriptBlock,
+        [INT]$ObjectsPerProcess,
         $APIAuthentication
     )
-    $HowManyJobs = [math]::Round(($RunObjects.Count / 200) + 0.5)
+
+    $Processes = 200
+    if ($ObjectsPerProcess){
+        $Processes = $ObjectsPerProcess
+    }
+
+    $HowManyJobs = [math]::Round(($RunObjects.Count / $Processes) + 0.5)
     $WorkerName = "PSMultiThreadingWorker"
 
     for($i = 0;$i -lt $HowManyJobs;$i++){
-        $ObjectStart = ($i*200)
-        $RunObjectsFraction = $RunObjects[$ObjectStart..($ObjectStart+200-1)]
+        $ObjectStart = ($i*$Processes)
+        $RunObjectsFraction = $RunObjects[$ObjectStart..($ObjectStart+$Processes-1)]
 
         Start-Job -Name $WorkerName -ArgumentList $RunObjectsFraction,$APIAuthentication -ScriptBlock $ScriptBlock | Out-Null
     }
