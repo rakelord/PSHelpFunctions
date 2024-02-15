@@ -141,7 +141,7 @@ function Remove-SpecialCharacters {
     param(
         $InputString
     )
-    return [regex]::Replace($InputString, "[^a-zA-Z0-9\s]", "")
+    return [regex]::Replace((Remove-BadStringCharacters($InputString)), "[^a-zA-Z0-9\s]", "")
 }
 
 function IsNotNULL {
